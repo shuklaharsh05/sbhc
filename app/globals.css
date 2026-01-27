@@ -1,0 +1,144 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-gradient-to-br from-gray-50 via-white to-primary-50 text-gray-900 antialiased;
+    background-attachment: fixed;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/70 backdrop-blur-xl border border-white/40 shadow-xl;
+    box-shadow: 0 8px 32px 0 rgba(2, 132, 199, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+  }
+  
+  .glass-dark {
+    @apply bg-white/85 backdrop-blur-2xl border border-gray-200/60 shadow-2xl;
+    box-shadow: 0 20px 60px -15px rgba(2, 132, 199, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.6) inset, 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+  
+  .glass-card {
+    @apply bg-gradient-to-br from-white/90 via-white/80 to-primary-50/40 backdrop-blur-xl;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 10px 40px -10px rgba(2, 132, 199, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.5) inset, 0 2px 8px rgba(0, 0, 0, 0.04);
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-600 via-primary-700 to-healthcare-600 bg-clip-text text-transparent;
+    background-size: 200% auto;
+    animation: gradient-shift 3s ease infinite;
+  }
+  
+  .gradient-text-hero {
+    @apply bg-gradient-to-r from-primary-700 via-primary-600 to-healthcare-600 bg-clip-text text-transparent;
+    background-size: 200% auto;
+    animation: gradient-shift 4s ease infinite;
+    text-shadow: 0 0 30px rgba(2, 132, 199, 0.3);
+  }
+  
+  .gradient-bg {
+    background: linear-gradient(135deg, rgba(2, 132, 199, 0.1) 0%, rgba(22, 163, 74, 0.1) 100%);
+  }
+  
+  .section-padding {
+    @apply py-20 md:py-28 lg:py-32;
+  }
+  
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-300;
+    transform-style: preserve-3d;
+  }
+  
+  .card-hover:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 25px 50px -12px rgba(2, 132, 199, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+  }
+  
+  .brand-accent {
+    position: relative;
+  }
+  
+  .text-shadow-brand {
+    text-shadow: 0 2px 20px rgba(2, 132, 199, 0.2);
+  }
+  
+  .pattern-dots {
+    background-image: radial-gradient(circle, rgba(2, 132, 199, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+  
+  .pattern-grid {
+    background-image: 
+      linear-gradient(rgba(2, 132, 199, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(2, 132, 199, 0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.glass {
+  box-shadow: 0 8px 32px 0 rgba(2, 132, 199, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+}
+
+.glass-dark {
+  box-shadow: 0 20px 60px -15px rgba(2, 132, 199, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.6) inset, 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.glass-card {
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 10px 40px -10px rgba(2, 132, 199, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.5) inset, 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.gradient-text {
+  background-size: 200% auto;
+  animation: gradient-shift 3s ease infinite;
+}
+
+.gradient-text-hero {
+  background-size: 200% auto;
+  animation: gradient-shift 4s ease infinite;
+  text-shadow: 0 0 30px rgba(2, 132, 199, 0.3);
+}
+
+.card-hover {
+  transform-style: preserve-3d;
+}
+
+.card-hover:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 25px 50px -12px rgba(2, 132, 199, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+}
+
+.text-shadow-brand {
+  text-shadow: 0 2px 20px rgba(2, 132, 199, 0.2);
+}
+
+.brand-accent::before {
+  content: "";
+  position: absolute;
+  left: -12px;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, #0284c7 0%, #16a34a 100%);
+  border-radius: 2px;
+}
