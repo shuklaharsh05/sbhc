@@ -237,7 +237,10 @@ export default function Home() {
                         {item.title}
                       </h3>
                     </div>
-                    {item.isList ? (
+                    <p className="text-gray-700 leading-relaxed">
+                        {item.content}
+                      </p>
+                    {/* {item.isList ? (
                       <ul className="space-y-2">
                         {item.content.map((value: string, i: number) => (
                           <li
@@ -253,7 +256,7 @@ export default function Home() {
                       <p className="text-gray-700 leading-relaxed">
                         {item.content}
                       </p>
-                    )}
+                    )} */}
                   </div>
                 </motion.div>
               );
