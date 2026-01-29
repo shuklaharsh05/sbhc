@@ -53,14 +53,28 @@ const PARTNER_LOGOS = [
   { name: "Partner 6", logo: "/logo.svg" },
 ];
 
+function PartnerLogo({ client }: { client: (typeof PARTNER_LOGOS)[0] }) {
+  return (
+    <div className="flex shrink-0 items-center justify-center grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
+      <Image
+        src={client.logo}
+        alt={client.name}
+        width={140}
+        height={56}
+        className="h-12 w-auto object-contain lg:h-14"
+      />
+    </div>
+  );
+}
+
 function PartnersSlider() {
-  const setRef = useRef<HTMLDivElement>(null);
-  const [setWidth, setSetWidth] = useState(0);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [oneRowWidth, setOneRowWidth] = useState(0);
 
   useEffect(() => {
-    const el = setRef.current;
+    const el = trackRef.current;
     if (!el) return;
-    const measure = () => setSetWidth(el.offsetWidth);
+    const measure = () => setOneRowWidth(el.offsetWidth);
     measure();
     const ro = new ResizeObserver(measure);
     ro.observe(el);
@@ -68,54 +82,32 @@ function PartnersSlider() {
   }, []);
 
   return (
-    <div className="flex w-max items-center">
+    <div className="w-full overflow-hidden">
       <motion.div
         className="flex w-max items-center"
         style={{ x: 0 }}
-        animate={{ x: setWidth ? -setWidth : 0 }}
+        animate={{ x: oneRowWidth ? -oneRowWidth : 0 }}
         transition={{
-          duration: 45,
+          duration: 35,
           repeat: Infinity,
           repeatType: "loop",
           ease: "linear",
         }}
       >
         <div
-          ref={setRef}
-          className="flex shrink-0 items-center gap-12 lg:gap-20"
+          ref={trackRef}
+          className="flex shrink-0 items-center gap-12 lg:gap-20 pr-12 lg:pr-20"
         >
           {PARTNER_LOGOS.map((client, i) => (
-            <div
-              key={`a-${i}`}
-              className="flex shrink-0 items-center justify-center grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
-            >
-              <Image
-                src={client.logo}
-                alt={client.name}
-                width={140}
-                height={56}
-                className="h-12 w-auto object-contain lg:h-14"
-              />
-            </div>
+            <PartnerLogo key={`a-${i}`} client={client} />
           ))}
         </div>
         <div
-          className="flex shrink-0 items-center gap-12 lg:gap-20"
+          className="flex shrink-0 items-center gap-12 lg:gap-20 pr-12 lg:pr-20"
           aria-hidden
         >
           {PARTNER_LOGOS.map((client, i) => (
-            <div
-              key={`b-${i}`}
-              className="flex shrink-0 items-center justify-center grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
-            >
-              <Image
-                src={client.logo}
-                alt={client.name}
-                width={140}
-                height={56}
-                className="h-12 w-auto object-contain lg:h-14"
-              />
-            </div>
+            <PartnerLogo key={`b-${i}`} client={client} />
           ))}
         </div>
       </motion.div>

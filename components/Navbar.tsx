@@ -39,7 +39,6 @@ export default function Navbar() {
       <div className="w-[90%] max-w-screen-2xl mx-auto">
         <div className="flex items-center justify-between">
           <motion.div
-            whileHover={{ scale: 1.05 }}
             className="flex items-center space-x-3 group"
           >
             {/* <div className="relative">
@@ -72,9 +71,8 @@ export default function Navbar() {
             ))}
             <motion.a
               href="#contact"
-              whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              className="px-6 py-2.5 bg-gradient-to-r from-primary-600 via-primary-500 to-healthcare-600 text-white rounded-full font-bold shadow-xl hover:shadow-2xl transition-all duration-300 relative overflow-hidden group"
+              className="px-6 py-2.5 bg-gradient-to-r from-primary-600 via-primary-500 to-healthcare-600 text-white rounded-full font-bold shadow-xl transition-all duration-300 relative overflow-hidden group"
             >
               <span className="relative z-10">Get Consultation</span>
               <span className="absolute inset-0 bg-gradient-to-r from-primary-700 to-healthcare-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
