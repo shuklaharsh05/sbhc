@@ -95,6 +95,20 @@
   }
 }
 
+@keyframes infinite-slider {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-infinite-slider {
+  animation: infinite-slider 45s linear infinite;
+  will-change: transform;
+}
+
 .glass {
   box-shadow: 0 8px 32px 0 rgba(2, 132, 199, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.5) inset;
 }

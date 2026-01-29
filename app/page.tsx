@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import SectionWrapper from "@/components/SectionWrapper";
@@ -42,6 +43,85 @@ const servicesListItemVariants = {
   hidden: { opacity: 0, x: -24 },
   visible: { opacity: 1, x: 0 },
 };
+
+const PARTNER_LOGOS = [
+  { name: "Partner 1", logo: "/logo.svg" },
+  { name: "Partner 2", logo: "/logo.svg" },
+  { name: "Partner 3", logo: "/logo.svg" },
+  { name: "Partner 4", logo: "/logo.svg" },
+  { name: "Partner 5", logo: "/logo.svg" },
+  { name: "Partner 6", logo: "/logo.svg" },
+];
+
+function PartnersSlider() {
+  const setRef = useRef<HTMLDivElement>(null);
+  const [setWidth, setSetWidth] = useState(0);
+
+  useEffect(() => {
+    const el = setRef.current;
+    if (!el) return;
+    const measure = () => setSetWidth(el.offsetWidth);
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  return (
+    <div className="flex w-max items-center">
+      <motion.div
+        className="flex w-max items-center"
+        style={{ x: 0 }}
+        animate={{ x: setWidth ? -setWidth : 0 }}
+        transition={{
+          duration: 45,
+          repeat: Infinity,
+          repeatType: "loop",
+          ease: "linear",
+        }}
+      >
+        <div
+          ref={setRef}
+          className="flex shrink-0 items-center gap-12 lg:gap-20"
+        >
+          {PARTNER_LOGOS.map((client, i) => (
+            <div
+              key={`a-${i}`}
+              className="flex shrink-0 items-center justify-center grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+            >
+              <Image
+                src={client.logo}
+                alt={client.name}
+                width={140}
+                height={56}
+                className="h-12 w-auto object-contain lg:h-14"
+              />
+            </div>
+          ))}
+        </div>
+        <div
+          className="flex shrink-0 items-center gap-12 lg:gap-20"
+          aria-hidden
+        >
+          {PARTNER_LOGOS.map((client, i) => (
+            <div
+              key={`b-${i}`}
+              className="flex shrink-0 items-center justify-center grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+            >
+              <Image
+                src={client.logo}
+                alt={client.name}
+                width={140}
+                height={56}
+                className="h-12 w-auto object-contain lg:h-14"
+              />
+            </div>
+          ))}
+        </div>
+      </motion.div>
+    </div>
+  );
+}
 
 export default function Home() {
   return (
@@ -159,14 +239,27 @@ export default function Home() {
             </p>
           </motion.div>
           <div className="flex flex-col lg:flex-row items-center gap-4 max-w-4xl mx-auto">
-            <Image
-              src="/founder.png"
+           {/* <div className="bg-white rounded-full p-4">
+           <Image
+              src="/founder-img.png"
               alt="About SBHC"
               width={1000}
               height={500}
-              className="max-w-80"
+              className="max-w-80 lg:max-w-96"
             />
-            <div className="text-base text-gray-600 leading-relaxed border border-[#d2d2d2c2] bg-[#ffffff85] py-4 lg:py-6 px-6 lg:px-8 rounded-2xl">
+           </div> */}
+            <div className="text-base text-gray-600 leading-relaxed border border-[#d2d2d2c2] bg-[#ffffff85] rounded-2xl flex flex-col sm:flex-row items-center justify-center gap-0 lg:gap-6 overflow-hidden">
+            <div>
+            <Image
+              src="/founder-img.png"
+              alt="About SBHC"
+              width={1000}
+              height={500}
+              className="max-w-72 lg:max-w-80"
+            />
+            </div>
+            <div className="h-px w-full bg-gradient-to-r from-[#ffffff00] via-[#bbbbbb] to-[#ffffff00] lg:hidden" />
+              <div className="p-4 lg:pr-6">
               <p className="lg:leading-relaxed leading-[1.25]">
                 {" "}
                 SBHC was founded with a clear and purpose-driven vision, shaped
@@ -179,6 +272,7 @@ export default function Home() {
               <p className="text-black font-medium mt-4 lg:mt-6 leading-[1.35] ml-4">
                 - Mr. Ajay Bansal
               </p>
+              </div>
             </div>
           </div>
         </div>
@@ -226,7 +320,7 @@ export default function Home() {
                   transition={{ delay: index * 0.2 }}
                   className="rounded-3xl p-6 lg:p-10 shadow-2xl relative overflow-hidden bg-[url('/mission-bg.svg')] bg-cover bg-center border border-[#DDDDDD] group"
                 >
-                  <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-primary-100/40 to-transparent rounded-bl-3xl" />
+                  {/* <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-primary-100/40 to-transparent rounded-bl-3xl" /> */}
                   <div className="relative z-10">
                     <div className="mb-6 inline-flex p-4 rounded-2xl bg-gradient-to-br from-primary-100 to-healthcare-100 group-hover:scale-110 transition-transform duration-300 shadow-lg group-hover:shadow-xl">
                       <IconComponent className="w-10 h-10 text-primary-600 group-hover:text-primary-700 transition-colors" />
@@ -238,8 +332,8 @@ export default function Home() {
                       </h3>
                     </div>
                     <p className="text-gray-700 leading-relaxed">
-                        {item.content}
-                      </p>
+                      {item.content}
+                    </p>
                     {/* {item.isList ? (
                       <ul className="space-y-2">
                         {item.content.map((value: string, i: number) => (
@@ -573,13 +667,16 @@ export default function Home() {
               return (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={{ opacity: 0, y: 0 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-30px" }}
-                  transition={{
-                    delay: index * 0.2,
-                    duration: 0.5,
-                    ease: "easeInOut",
+                  viewport={{ once: true }}
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      transition: { delay: index * 0.2, duration: 0.4 },
+                    },
                   }}
                   className="bg-white hover:bg-[#f3f8ff31] hover:text-white transition-all duration-300 border border-[#ffffff] rounded-3xl p-3 lg:p-6 relative overflow-hidden group"
                 >
@@ -594,6 +691,27 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Partners Section */}
+      <section
+        id="partners"
+        className="bg-[#F3F8FF] py-16 lg:py-20 overflow-hidden"
+      >
+        <div className="w-full">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-10 lg:mb-14 px-4 lg:px-0"
+          >
+            Our Partners
+          </motion.h2>
+          <div className="relative overflow-hidden">
+            <div className="absolute left-0 top-0 bottom-0 w-24 lg:w-32 bg-gradient-to-r from-[#F3F8FF] to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-24 lg:w-32 bg-gradient-to-l from-[#F3F8FF] to-transparent z-10 pointer-events-none" />
+            <PartnersSlider />
+          </div>
+        </div>
+      </section>
       {/* Footer */}
       <section
         id="contact"
