@@ -1,6 +1,6 @@
+
 "use client";
 
-import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import SectionWrapper from "@/components/SectionWrapper";
@@ -51,66 +51,29 @@ const PARTNER_LOGOS = [
   { name: "Partner 4", logo: "/logo.svg" },
   { name: "Partner 5", logo: "/logo.svg" },
   { name: "Partner 6", logo: "/logo.svg" },
+  { name: "Partner 7", logo: "/logo.svg" },
 ];
 
-function PartnerLogo({ client }: { client: (typeof PARTNER_LOGOS)[0] }) {
-  return (
-    <div className="flex shrink-0 items-center justify-center grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300">
-      <Image
-        src={client.logo}
-        alt={client.name}
-        width={140}
-        height={56}
-        className="h-12 w-auto object-contain lg:h-14"
-      />
-    </div>
-  );
-}
-
 function PartnersSlider() {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const [oneRowWidth, setOneRowWidth] = useState(0);
-
-  useEffect(() => {
-    const el = trackRef.current;
-    if (!el) return;
-    const measure = () => setOneRowWidth(el.offsetWidth);
-    measure();
-    const ro = new ResizeObserver(measure);
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
-
   return (
-    <div className="w-full overflow-hidden">
-      <motion.div
-        className="flex w-max items-center"
-        style={{ x: 0 }}
-        animate={{ x: oneRowWidth ? -oneRowWidth : 0 }}
-        transition={{
-          duration: 35,
-          repeat: Infinity,
-          repeatType: "loop",
-          ease: "linear",
-        }}
-      >
-        <div
-          ref={trackRef}
-          className="flex shrink-0 items-center gap-12 lg:gap-20 pr-12 lg:pr-20"
-        >
-          {PARTNER_LOGOS.map((client, i) => (
-            <PartnerLogo key={`a-${i}`} client={client} />
-          ))}
-        </div>
-        <div
-          className="flex shrink-0 items-center gap-12 lg:gap-20 pr-12 lg:pr-20"
-          aria-hidden
-        >
-          {PARTNER_LOGOS.map((client, i) => (
-            <PartnerLogo key={`b-${i}`} client={client} />
-          ))}
-        </div>
-      </motion.div>
+    <div className="slider">
+      <div className="slide-track">
+        {[...PARTNER_LOGOS, ...PARTNER_LOGOS].map((client, i) => (
+          <div
+            key={i}
+            className="slide grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+            aria-hidden={i >= 7}
+          >
+            <Image
+              src={client.logo}
+              alt={client.name}
+              width={250}
+              height={100}
+              className="max-h-full w-auto object-contain"
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -697,11 +660,7 @@ export default function Home() {
           >
             Our Partners
           </motion.h2>
-          <div className="relative overflow-hidden">
-            <div className="absolute left-0 top-0 bottom-0 w-24 lg:w-32 bg-gradient-to-r from-[#F3F8FF] to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-24 lg:w-32 bg-gradient-to-l from-[#F3F8FF] to-transparent z-10 pointer-events-none" />
-            <PartnersSlider />
-          </div>
+          <PartnersSlider />
         </div>
       </section>
       {/* Footer */}
